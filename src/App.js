@@ -20,6 +20,8 @@ function App() {
       name: newName,
       age: newAge,
     });
+    
+    getUsers();
   };
 
   const updateUser = async (id, age) => {
@@ -30,15 +32,16 @@ function App() {
     };
 
     await updateDoc(userDoc, newFields);
+    getUsers();
   };
 
   const deleteUser = async (id) => {
     const userDoc = doc(db, "users", id);
     await deleteDoc(userDoc);
+    getUsers();
   };
 
-  useEffect(() => {
-    const getUsers = async () => {
+      const getUsers = async () => {
       const data = await getDocs(collection(db, "users"));
 
       setUsers(
@@ -49,6 +52,7 @@ function App() {
       );
     };
 
+  useEffect(() => {
     getUsers();
   }, []);
 
